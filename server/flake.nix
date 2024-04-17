@@ -12,5 +12,14 @@
 	  packages.aarch64-linux.postgresql_x86_64 = nixpkgs.legacyPackages.x86_64-linux.postgresql_16;
 
 	  packages.aarch64-linux.default = self.packages.aarch64-linux.postgresql_aarch64;
+
+    apps.aarch64.postgresql = {
+      type = "app";
+      package = self.packages.aarch64-linux.default;
+    };
+    apps.aarch64.postgresql_x86_64 = {
+      type = "app";
+      package = self.packages.aarch64-linux.postgresql_x86_64;
+    };
   };
 }
