@@ -24,6 +24,7 @@
         self.packages.aarch64-linux.qemu 
         self.packages.aarch64-linux.postgresql_aarch64
         self.packages.aarch64-linux.hyperfine
+        nixpkgs.legacyPackages.aarch64-linux.proot
       ];
     };
   };
