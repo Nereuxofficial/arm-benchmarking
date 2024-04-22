@@ -7,36 +7,52 @@
     utils.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs}: flake-utils.lib.eachDefaultSystem (system:
+  outputs = { self, nixpkgs, utils}: utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs {
         inherit system;
       };
+      stdenv = pkgs.clangStdenv;
       fex-emu = (with pkgs; stdenv.mkDerivation {
           pname = "fex-emu";
           version = "02ebb6e";
           src = fetchgit {
             url = "https://github.com/FEX-Emu/FEX";
-            sha256 = lib.fakeSha256;
-            #sha256 = "02ebb6e32074ca26d60727b998d39fe04a2a2465";
+            sha256 = "sha256-nweeAuMCEs/iFXXJ5pk9upFJpzVFNERDFmpOIT4q0QI=";
             fetchSubmodules = true;
           };
+          buildInputs = [
+            epoxy
+            SDL2
+            ninja
+            llvm
+            squashfuse
+            erofs-utils
+          ];
           nativeBuildInputs = [
             clang
             cmake
+            llvm
+            pkg-config
+            python3
+            nasm
+            git
+            lld
           ];
           buildPhase = ''
-            mkdir Build
-            cd Build
-            CC=clang CXX=clang++ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DUSE_LINKER=lld -DENABLE_LTO=True -DBUILD_TESTS=False -DENABLE_ASSERTIONS=False -G Ninja ..
-            ninja'';
+            rm -r * # i have ZERO clue why nix builds the package using Unix makefiles first but here we are
+            CC=clang CXX=clang++ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DUSE_LINKER=lld -DENABLE_LTO=True -DBUILD_TESTS=False -DENABLE_ASSERTIONS=False -G Ninja ".."
+            ninja
+            '';
           installPhase = ''
-            sudo ninja install
+            ls -la
+            mkdir -p $out/bin
+            cp -r Bin/ $out/bin/
           '';
         }
       );
     in rec {
-      defaultApp = flake-utils.lib.mkApp {
+      defaultApp = utils.lib.mkApp {
         drv = defaultPackage;
       };
       defaultPackage = fex-emu;
