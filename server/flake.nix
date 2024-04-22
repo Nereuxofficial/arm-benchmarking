@@ -32,7 +32,7 @@
     devShell.aarch64-linux = nixpkgs.mkShell {
       buildInputs = [
         self.packages.aarch64-linux.postgresql_x86_64 
-        packages.aarch64-linux.qemu 
+        self.packages.aarch64-linux.qemu 
       ];
     };
   };
