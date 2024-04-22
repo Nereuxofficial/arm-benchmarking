@@ -31,7 +31,7 @@
       package = self.packages.aarch64-linux.postgresql_x86_64;
     };
 
-    devShell.aarch64-linux = nixpkgs.mkShell {
+    devShell.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.mkShell {
       packages = [
         self.packages.aarch64-linux.postgresql_x86_64 
         self.packages.aarch64-linux.qemu 
