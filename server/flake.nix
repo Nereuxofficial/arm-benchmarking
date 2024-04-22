@@ -10,6 +10,8 @@
 	  packages.aarch64-linux.postgresql_aarch64 = nixpkgs.legacyPackages.aarch64-linux.postgresql_16;
 
 	  packages.aarch64-linux.postgresql_x86_64 = nixpkgs.legacyPackages.x86_64-linux.postgresql_16;
+    
+    packages.aarch64-linux.qemu = nixpkgs.legacyPackages.aarch64-linux.qemu;
 
 	  packages.aarch64-linux.default = self.packages.aarch64-linux.postgresql_aarch64;
 
@@ -19,7 +21,19 @@
     };
     apps.aarch64.postgresql_x86_64 = {
       type = "app";
+      pre = {
+        inputs = {
+          qemu = self.packages.aarch64-linux.qemu;
+        };
+      };
       package = self.packages.aarch64-linux.postgresql_x86_64;
+    };
+
+    devShell.aarch64-linux = nixpkgs.mkShell {
+      buildInputs = [
+        self.packages.aarch64-linux.postgresql_x86_64 
+        qemu.packages.aarch64-linux.qemu 
+      ];
     };
   };
 }
