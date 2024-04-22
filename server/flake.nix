@@ -15,6 +15,8 @@
 
 	  packages.aarch64-linux.default = self.packages.aarch64-linux.postgresql_aarch64;
 
+    packages.aarch64-linux.hyperfine = nixpkgs.legacyPackages.aarch64-linux.hyperfine;
+
     apps.aarch64.postgresql = {
       type = "app";
       package = self.packages.aarch64-linux.default;
@@ -30,9 +32,11 @@
     };
 
     devShell.aarch64-linux = nixpkgs.mkShell {
-      buildInputs = [
+      packages = [
         self.packages.aarch64-linux.postgresql_x86_64 
         self.packages.aarch64-linux.qemu 
+        self.packages.aarch64-linux.postgresql_aarch64
+        self.packages.aarch64-linux.hyperfine
       ];
     };
   };
