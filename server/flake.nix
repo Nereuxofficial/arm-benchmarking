@@ -32,8 +32,8 @@
         nixpkgs.legacyPackages.aarch64-linux.proot
         nix_unstable.legacyPackages.x86_64-linux.redict
         nix_unstable.legacyPackages.aarch64-linux.redict
-        nix_unstable.legacyPackages.x86_64-linux.scylladb
-        nix_unstable.legacyPackages.aarch64-linux.scylladb
+        nixpkgs.legacyPackages.x86_64-linux.scylladb
+        nixpkgs.legacyPackages.aarch64-linux.scylladb
       ];
     };
   };
