@@ -32,8 +32,8 @@
         nixpkgs.legacyPackages.aarch64-linux.proot
         nix_unstable.legacyPackages.x86_64-linux.redict
         nix_unstable.legacyPackages.aarch64-linux.redict
-        nixpkgs.legacyPackages.x86_64-linux.dragonflydb
-        nixpkgs.legacyPackages.aarch64-linux.dragonflydb
+        nixpkgs.legacyPackages.x86_64-linux.foundationdb
+        nixpkgs.legacyPackages.aarch64-linux.foundationdb
       ];
     };
   };
