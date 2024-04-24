@@ -1,0 +1,32 @@
+name: Build zune-image with single features.
+
+env:
+  CARGO_TERM_COLOR: always
+on:
+  push:
+    branches: [ "main","dev" ]
+    paths:
+      - 'crates/zune-image/**'
+  pull_request:
+    branches: [ "main" ,"dev" ]
+    paths:
+      - 'crates/zune-image/**'
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        features: [ "image_formats", "serde-support", "metadata", "threads", "simd", "log","jpeg", "ppm", "png", "psd", "farbfeld", "qoi", "jpeg-xl", "hdr", "bmp" ]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check independent feature build Basics
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: -p zune-image --no-default-features -F ${{ matrix.features }}
+

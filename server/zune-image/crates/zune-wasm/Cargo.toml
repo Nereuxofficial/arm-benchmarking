@@ -1,0 +1,32 @@
+[package]
+name = "zune-wasm"
+version = "0.4.0"
+authors = ["caleb <etemesicaleb@gmail.com>"]
+edition = "2018"
+repository = "https://github.com/etemesi254/zune-image/tree/dev/crates/zune-wasm"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+log = ["zune-core/log"]
+default = ["console_error_panic_hook"]
+
+[dependencies]
+wasm-bindgen = "0.2.63"
+zune-image = { path = "../zune-image", features = ["image_formats"] }
+zune-core = { path = "../zune-core", version = "^0.5.0-rc0" }
+zune-imageprocs = { path = "../zune-imageprocs" }
+# The `console_error_panic_hook` crate provides better debugging of panics by
+# logging them with `console.error`. This is great for development, but requires
+# all the `std::fmt` and `std::panicking` infrastructure, so isn't great for
+# code size when deploying.
+console_error_panic_hook = { version = "0.1.6", optional = true }
+wasm-logger = "0.2.0"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.13"
+
+
+[package.metadata]
+wasm-opt = false

@@ -1,0 +1,39 @@
+[package]
+name = "zune-inflate-fuzz"
+version = "0.0.0"
+authors = ["Automatically generated"]
+publish = false
+edition = "2018"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+miniz_oxide = "0.7.1"
+flate2 = { version = "1.0.17", features = ["zlib-ng"], default-features = false }
+
+[dependencies.zune-inflate]
+path = ".."
+
+# Prevent this from interfering with workspaces
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "decode_buffer"
+path = "fuzz_targets/decode_buffer.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "roundtrip"
+path = "fuzz_targets/roundtrip.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "roundtrip_zlib"
+path = "fuzz_targets/roundtrip_zlib.rs"
+test = false
+doc = false
