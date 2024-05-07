@@ -32,8 +32,7 @@
         nixpkgs.legacyPackages.aarch64-linux.proot
         nix_unstable.legacyPackages.x86_64-linux.redict
         nix_unstable.legacyPackages.aarch64-linux.redict
-        nixpkgs.legacyPackages.aarch64-linux.phoronix-test-suite
-        nixpkgs.legacyPackages.x86_64-linux.phoronix-test-suite
+
       ];
     };
   };
